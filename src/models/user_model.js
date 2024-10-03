@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 import bcrypt from 'bcrypt';
 
 const userSchema = new Schema({
+    nickname: {
+        type: Schema.Types.String,
+        required: false
+    },
     email: {
         type: Schema.Types.String,
         unique: true,
@@ -21,6 +25,17 @@ const userSchema = new Schema({
         },
         required: true
     },
+    role: {
+        type: Schema.Types.String,
+        enum: ['USER', 'ADMINISTRATOR'],
+        default: 'USER',
+        required: true
+    }, 
+    following: {
+        type: [Schema.Types.ObjectId],
+        ref: 'User',
+        required: false
+    }
 }, {
     timestamps: true
 });
