@@ -18,7 +18,7 @@ const index = async (req, res) => {
     try {
         const filter = {
             user: {
-                $$in: req.user.following
+                $in: [...req.user.following, req.user._id]
             }
         }
         const content = await Post.find(filter).exec();
